@@ -13,14 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Executes sorting benchmarks against datasets under scientifically fair conditions.
+ * Executes sorting benchmarks against datasets under fair conditions.
  * Ensures each algorithm receives an identical deep copy of the raw data,
  * performs JVM warm-up to prevent JIT bias, and verifies algorithmic correctness.
- *
- * Part of Member 3's contribution: Performance Evaluation and Benchmarking.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class PerformanceEvaluator {
 
@@ -28,7 +23,6 @@ public class PerformanceEvaluator {
 
     public PerformanceEvaluator() {
         this.registeredAlgorithms = new ArrayList<>();
-        // Register all 5 required algorithms in standard order
         this.registeredAlgorithms.add(new InsertionSort());
         this.registeredAlgorithms.add(new ShellSort());
         this.registeredAlgorithms.add(new MergeSort());
@@ -40,9 +34,6 @@ public class PerformanceEvaluator {
         return new ArrayList<>(registeredAlgorithms);
     }
 
-    /**
-     * Evaluates all registered sorting algorithms on the provided data array.
-     */
     public EvaluationReport evaluateAll(String datasetName, String columnName, double[] rawData) {
         warmUpJit(rawData);
 
@@ -54,9 +45,6 @@ public class PerformanceEvaluator {
         return new EvaluationReport(datasetName, columnName, rawData.length, results);
     }
 
-    /**
-     * Evaluates a single specific sorting algorithm on the provided data array.
-     */
     public EvaluationReport evaluateOne(String datasetName, String columnName, double[] rawData, SortAlgorithm algo) {
         SortResult result = evaluateSingle(algo, rawData);
         List<SortResult> list = new ArrayList<>();
@@ -64,11 +52,7 @@ public class PerformanceEvaluator {
         return new EvaluationReport(datasetName, columnName, rawData.length, list);
     }
 
-    /**
-     * Runs benchmark on a single algorithm with high-precision timing and correctness verification.
-     */
     public SortResult evaluateSingle(SortAlgorithm algo, double[] rawData) {
-        // Deep copy data so the original and subsequent algorithms are not affected
         double[] testCopy = rawData.clone();
 
         long startTime = System.nanoTime();
@@ -78,7 +62,6 @@ public class PerformanceEvaluator {
         long durationNanos = Math.max(1, endTime - startTime);
         boolean correctlySorted = verifySorted(testCopy);
 
-        // Capture sample sorted data for UI preview (up to 100 items)
         int sampleSize = Math.min(testCopy.length, 100);
         double[] sample = Arrays.copyOf(testCopy, sampleSize);
 
@@ -95,10 +78,6 @@ public class PerformanceEvaluator {
         );
     }
 
-    /**
-     * Lightweight JIT warm-up pass with dummy data to ensure the JVM HotSpot compiler
-     * doesn't penalize whichever algorithm happens to be tested first.
-     */
     private void warmUpJit(double[] source) {
         int warmSize = Math.min(source.length, 500);
         double[] dummy = new double[warmSize];
@@ -111,9 +90,6 @@ public class PerformanceEvaluator {
         }
     }
 
-    /**
-     * Verifies that the array is strictly sorted in non-decreasing order.
-     */
     public static boolean verifySorted(double[] array) {
         if (array == null || array.length <= 1) {
             return true;

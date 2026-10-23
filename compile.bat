@@ -1,7 +1,7 @@
 @echo off
 setlocal
 echo =======================================================================
-echo Compiling IC4302 Sorting Algorithm Performance Evaluation Project...
+echo Compiling Sorting Algorithm Performance Evaluation Project...
 echo =======================================================================
 
 if not exist "build" mkdir "build"

@@ -7,11 +7,6 @@ import java.util.List;
 /**
  * Encapsulates an in-memory tabular representation of a parsed CSV dataset.
  * Provides access to headers, rows, column metadata, and numerical extraction.
- * 
- * Part of Member 1's contribution: File upload functionality and dataset handling.
- * 
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class Dataset {
     private final String sourceFileName;
@@ -59,7 +54,6 @@ public class Dataset {
                 }
             }
 
-            // A column is deemed numeric if it has at least one valid number and no non-numeric text values
             boolean isNumeric = (validNum > 0) && allNumericOrEmpty;
             infos.add(new ColumnInfo(c, colName, isNumeric, rows.size(), validNum, min, max));
         }
@@ -109,14 +103,6 @@ public class Dataset {
         return numericCols;
     }
 
-    /**
-     * Extracts all valid numeric values from the specified column into a primitive double array.
-     * Empty cells are omitted gracefully.
-     *
-     * @param colIndex 0-based column index
-     * @return double array of numeric values
-     * @throws IllegalArgumentException if column is not numeric or has no data
-     */
     public double[] extractColumnData(int colIndex) {
         if (colIndex < 0 || colIndex >= headers.size()) {
             throw new IllegalArgumentException("Column index " + colIndex + " is out of range.");
@@ -130,7 +116,7 @@ public class Dataset {
                     try {
                         list.add(Double.parseDouble(val));
                     } catch (NumberFormatException ignored) {
-                        // Ignore non-numeric noise in mixed columns if any
+                        // Skip non-numeric values
                     }
                 }
             }

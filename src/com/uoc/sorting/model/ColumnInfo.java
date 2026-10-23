@@ -2,10 +2,6 @@ package com.uoc.sorting.model;
 
 /**
  * Represents metadata and statistical information about a column in the dataset.
- * Part of Member 1's contribution: Dataset Handling and Metadata.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class ColumnInfo {
     private final int index;

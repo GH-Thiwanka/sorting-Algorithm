@@ -8,19 +8,13 @@ import java.util.List;
 
 /**
  * Table model for rendering the raw CSV dataset preview in JTable.
- * Supports efficient rendering of large datasets by displaying rows seamlessly.
- *
- * Part of Member 1 & 3's collaboration: Dataset Visualization.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class DataTableModel extends AbstractTableModel {
 
     private final List<String> headers;
     private final List<String[]> rows;
     private final int rowCount;
-    private final int previewLimit = 5000; // Cap table rendering to keep UI snappy
+    private final int previewLimit = 5000;
 
     public DataTableModel(Dataset dataset) {
         if (dataset != null) {
@@ -41,7 +35,7 @@ public class DataTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return headers.isEmpty() ? 0 : headers.size() + 1; // Col 0 is Row Number
+        return headers.isEmpty() ? 0 : headers.size() + 1;
     }
 
     @Override

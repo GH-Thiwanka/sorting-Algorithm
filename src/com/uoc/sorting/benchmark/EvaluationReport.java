@@ -8,13 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Encapsulates the complete performance evaluation outcome across tested algorithms.
- * Ranks algorithms, identifies the champion (best performer), and computes speedup ratios.
- *
- * Part of Member 3's contribution: Performance Evaluation.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
+ * Encapsulates the performance evaluation outcome across tested algorithms.
+ * Ranks algorithms, identifies the best performer, and computes speedup ratios.
  */
 public class EvaluationReport {
     private final String datasetName;
@@ -91,7 +86,7 @@ public class EvaluationReport {
             return "No performance data available.";
         }
         return String.format(
-            "★ BEST PERFORMING ALGORITHM: %s in %s (%.1fx faster than %s)",
+            "BEST PERFORMING ALGORITHM: %s in %s (%.1fx faster than %s)",
             bestPerformer.getAlgorithmName().toUpperCase(),
             bestPerformer.getFormattedTime(),
             getSpeedupFactor(),

@@ -2,16 +2,10 @@ package com.uoc.sorting.algorithms;
 
 /**
  * Implementation of Insertion Sort algorithm.
- * Part of Member 2's contribution: Implementation of Sorting Algorithms.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
- *
- * Description:
+ * 
  * Insertion Sort iterates through the array, taking each element (the key)
  * and placing it into its correct relative position within the already-sorted
  * prefix by shifting all larger elements one position to the right.
- * Highly efficient for small datasets or nearly sorted collections.
  */
 public class InsertionSort implements SortAlgorithm {
 
@@ -31,8 +25,6 @@ public class InsertionSort implements SortAlgorithm {
             double key = array[i];
             int j = i - 1;
 
-            // Shift elements of array[0..i-1] that are greater than key
-            // to one position ahead of their current position
             while (j >= 0 && array[j] > key) {
                 array[j + 1] = array[j];
                 j--;

@@ -7,11 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Table model for rendering benchmark performance metrics and Big-O complexities.
- * Part of Member 3's contribution: Performance Evaluation & Reporting.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
+ * Table model for rendering benchmark performance metrics.
  */
 public class ResultsTableModel extends AbstractTableModel {
 
@@ -48,7 +44,7 @@ public class ResultsTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case 0:
                 if (res.isBest()) {
-                    return "★ 1st (Best)";
+                    return "1st (Best)";
                 } else if (res.getRank() == 2) {
                     return "2nd";
                 } else if (res.getRank() == 3) {
@@ -63,7 +59,7 @@ public class ResultsTableModel extends AbstractTableModel {
             case 3:
                 return String.format("%,d ns", res.getExecutionTimeNanos());
             case 4:
-                return res.isSortedCorrectly() ? "✓ Sorted Correctly" : "✗ Sorting Failed";
+                return res.isSortedCorrectly() ? "Verified (Passed)" : "Failed";
             case 5:
                 return res.getTimeComplexityBest();
             case 6:

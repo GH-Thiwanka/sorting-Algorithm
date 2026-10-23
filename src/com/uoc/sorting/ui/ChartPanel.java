@@ -8,13 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Custom 2D Graphics panel that renders a high-definition bar chart
- * comparing sorting algorithm execution times.
- *
- * Part of Member 3's contribution: Visual Performance Reporting.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
+ * Custom 2D Graphics panel that renders a bar chart comparing sorting algorithm execution times.
  */
 public class ChartPanel extends JPanel {
 
@@ -56,29 +50,29 @@ public class ChartPanel extends JPanel {
         // Draw Title
         g2.setFont(UITheme.FONT_HEADER);
         g2.setColor(UITheme.TEXT_PRIMARY);
-        g2.drawString(chartTitle, 25, 30);
+        g2.drawString(chartTitle, 25, 28);
 
         g2.setFont(UITheme.FONT_SUBTITLE);
         g2.setColor(UITheme.TEXT_MUTED);
-        g2.drawString("Execution time measured using System.nanoTime() | Lower is better", 25, 48);
+        g2.drawString("Execution time measured using System.nanoTime() (Lower is better)", 25, 46);
 
         // Find max execution time for relative bar scaling
         long maxNanos = 1;
-        long minNanos = Long.MAX_VALUE;
         for (SortResult r : results) {
-            if (r.getExecutionTimeNanos() > maxNanos) maxNanos = r.getExecutionTimeNanos();
-            if (r.getExecutionTimeNanos() < minNanos) minNanos = r.getExecutionTimeNanos();
+            if (r.getExecutionTimeNanos() > maxNanos) {
+                maxNanos = r.getExecutionTimeNanos();
+            }
         }
 
         int count = results.size();
-        int topMargin = 70;
-        int bottomMargin = 30;
+        int topMargin = 68;
+        int bottomMargin = 25;
         int availableHeight = height - topMargin - bottomMargin;
-        int barHeight = Math.min(38, Math.max(24, availableHeight / (count * 2)));
+        int barHeight = Math.min(34, Math.max(22, availableHeight / (count * 2)));
         int rowSpacing = availableHeight / Math.max(1, count);
 
         int labelX = 25;
-        int labelWidth = 140;
+        int labelWidth = 135;
         int barStartX = labelX + labelWidth + 10;
         int rightMargin = 220;
         int maxBarWidth = Math.max(100, width - barStartX - rightMargin);
@@ -91,28 +85,28 @@ public class ChartPanel extends JPanel {
             SortResult res = results.get(i);
             int y = topMargin + (i * rowSpacing) + (rowSpacing - barHeight) / 2;
 
-            // Algorithm Name and Rank Badge
+            // Algorithm Name
             g2.setFont(UITheme.FONT_BODY_BOLD);
             if (res.isBest()) {
                 g2.setColor(UITheme.SUCCESS_DARK);
-                g2.drawString("★ " + res.getAlgorithmName(), labelX, y + barHeight / 2 + 5);
+                g2.drawString(res.getAlgorithmName(), labelX, y + barHeight / 2 + 5);
             } else {
                 g2.setColor(UITheme.TEXT_PRIMARY);
                 g2.drawString(res.getAlgorithmName(), labelX, y + barHeight / 2 + 5);
             }
 
-            // Calculate scaled bar length (using smooth scaling with min visible width of 15px)
+            // Calculate scaled bar length
             double ratio = (double) res.getExecutionTimeNanos() / (double) maxNanos;
             int barWidth = (int) Math.round(ratio * maxBarWidth);
             if (barWidth < 18) {
                 barWidth = 18;
             }
 
-            // Draw Bar Gradient
+            // Bar Gradient
             Color startColor;
             Color endColor;
             if (res.isBest()) {
-                startColor = new Color(16, 185, 129); // Vibrant emerald
+                startColor = new Color(16, 185, 129); // Emerald
                 endColor = new Color(5, 150, 105);
             } else if (res.getRank() == 2) {
                 startColor = new Color(59, 130, 246); // Blue
@@ -127,11 +121,7 @@ public class ChartPanel extends JPanel {
 
             GradientPaint gradient = new GradientPaint(barStartX, y, startColor, barStartX + barWidth, y + barHeight, endColor);
             g2.setPaint(gradient);
-            g2.fillRoundRect(barStartX, y, barWidth, barHeight, 8, 8);
-
-            // Draw border
-            g2.setColor(endColor.darker());
-            g2.drawRoundRect(barStartX, y, barWidth, barHeight, 8, 8);
+            g2.fillRoundRect(barStartX, y, barWidth, barHeight, 6, 6);
 
             // Draw Time text to the right of the bar
             g2.setFont(UITheme.FONT_BODY_BOLD);
@@ -140,11 +130,11 @@ public class ChartPanel extends JPanel {
             int textX = barStartX + barWidth + 12;
             g2.drawString(timeText, textX, y + barHeight / 2 + 5);
 
-            // If Best Performer, add trophy indicator
+            // If Best Performer, add [BEST] tag
             if (res.isBest()) {
                 g2.setFont(UITheme.FONT_BODY_BOLD);
                 g2.setColor(UITheme.SUCCESS_DARK);
-                int badgeX = textX + g2.getFontMetrics().stringWidth(timeText) + 12;
+                int badgeX = textX + g2.getFontMetrics().stringWidth(timeText) + 10;
                 g2.drawString("[BEST]", badgeX, y + barHeight / 2 + 5);
             }
         }
@@ -160,7 +150,7 @@ public class ChartPanel extends JPanel {
         g2.drawString(msg, (width - msgWidth) / 2, height / 2 - 10);
 
         g2.setFont(UITheme.FONT_BODY);
-        String sub = "Upload a CSV dataset and click 'Run Performance Benchmark' to view comparison charts.";
+        String sub = "Upload a CSV dataset and click 'Run Performance Benchmark' to view comparison chart.";
         int subWidth = g2.getFontMetrics().stringWidth(sub);
         g2.drawString(sub, (width - subWidth) / 2, height / 2 + 15);
     }

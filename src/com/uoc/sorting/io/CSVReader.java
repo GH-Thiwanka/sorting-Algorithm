@@ -13,13 +13,8 @@ import java.util.List;
 
 /**
  * Handles uploading, reading, and parsing comma-separated value (.csv) datasets.
- * Implements a robust RFC 4180-compliant state parser supporting quoted fields,
+ * Implements an RFC 4180-compliant state parser supporting quoted fields,
  * embedded commas, escaped quotes, and graceful whitespace handling.
- * 
- * Part of Member 1's contribution: File upload functionality and dataset handling.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class CSVReader {
 
@@ -55,7 +50,6 @@ public class CSVReader {
             String line;
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
-                // Skip empty or purely whitespace lines
                 if (line.trim().isEmpty()) {
                     continue;
                 }
@@ -66,19 +60,17 @@ public class CSVReader {
                     if (tokens.isEmpty()) {
                         throw new CSVParserException("Header line is empty.", lineNumber);
                     }
-                    // Clean potential BOM character on first header column
                     if (!tokens.isEmpty() && tokens.get(0).startsWith("\uFEFF")) {
                         tokens.set(0, tokens.get(0).substring(1));
                     }
                     headers = tokens;
                 } else {
-                    // Normalize row length to match column header count
                     String[] rowArray = new String[headers.size()];
                     for (int i = 0; i < headers.size(); i++) {
                         if (i < tokens.size()) {
                             rowArray[i] = tokens.get(i).trim();
                         } else {
-                            rowArray[i] = ""; // Pad missing columns with empty string
+                            rowArray[i] = "";
                         }
                     }
                     rows.add(rowArray);
@@ -115,11 +107,9 @@ public class CSVReader {
 
             if (c == '\"') {
                 if (inQuotes && i + 1 < len && line.charAt(i + 1) == '\"') {
-                    // Escaped quote: "" -> "
                     sb.append('\"');
-                    i++; // skip next quote
+                    i++;
                 } else {
-                    // Toggle quote state
                     inQuotes = !inQuotes;
                 }
             } else if (c == ',' && !inQuotes) {

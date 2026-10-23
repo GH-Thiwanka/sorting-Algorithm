@@ -2,16 +2,9 @@ package com.uoc.sorting.algorithms;
 
 /**
  * Implementation of Merge Sort algorithm.
- * Part of Member 2's contribution: Implementation of Sorting Algorithms.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
- *
- * Description:
- * Merge Sort is a classic divide-and-conquer algorithm. It recursively divides
- * the unsorted array into two halves until single-element sub-arrays are obtained,
- * and then repeatedly merges sub-arrays to produce new sorted sub-arrays.
- * Guarantees O(n log n) performance regardless of initial data order.
+ * 
+ * Merge Sort is a divide-and-conquer algorithm that recursively divides
+ * the unsorted array into two halves, sorts them, and merges them back in linear time.
  */
 public class MergeSort implements SortAlgorithm {
 
@@ -39,7 +32,6 @@ public class MergeSort implements SortAlgorithm {
     }
 
     private void merge(double[] array, double[] temp, int left, int mid, int right) {
-        // Copy elements to temp working array
         for (int i = left; i <= right; i++) {
             temp[i] = array[i];
         }
@@ -48,7 +40,6 @@ public class MergeSort implements SortAlgorithm {
         int j = mid + 1;
         int k = left;
 
-        // Merge back into original array in sorted order
         while (i <= mid && j <= right) {
             if (temp[i] <= temp[j]) {
                 array[k++] = temp[i++];
@@ -57,11 +48,9 @@ public class MergeSort implements SortAlgorithm {
             }
         }
 
-        // Copy remaining elements of left sub-array if any
         while (i <= mid) {
             array[k++] = temp[i++];
         }
-        // (Right sub-array elements are already in place)
     }
 
     @Override

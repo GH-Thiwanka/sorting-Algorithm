@@ -15,10 +15,6 @@ import java.io.File;
 /**
  * Application Entry Point.
  * Supports both Graphical User Interface (GUI) and Command-Line Interface (CLI) benchmarking.
- * 
- * Course: IC4302 - Programming III
- * Group Assignment: Java Application for Sorting Algorithm Performance Evaluation
- * Faculty of Technology, University of Colombo
  */
 public class Main {
 
@@ -28,7 +24,7 @@ public class Main {
             return;
         }
 
-        // Apply Nimbus or System Look and Feel
+        // Apply native Windows / System Look and Feel
         UITheme.applySystemLookAndFeel();
 
         // Launch GUI safely on the Swing Event Dispatch Thread
@@ -50,8 +46,7 @@ public class Main {
         int colIndex = args.length > 2 ? Integer.parseInt(args[2]) : -1;
 
         System.out.println("=======================================================================");
-        System.out.println("IC4302 - SORTING ALGORITHM PERFORMANCE EVALUATION (CLI MODE)");
-        System.out.println("University of Colombo • Faculty of Technology");
+        System.out.println("SORTING ALGORITHM PERFORMANCE EVALUATION (CLI MODE)");
         System.out.println("=======================================================================\n");
 
         File file = new File(filePath);
@@ -69,7 +64,6 @@ public class Main {
             if (colIndex >= 0 && colIndex < dataset.getColumnCount()) {
                 targetCol = dataset.getColumnInfo(colIndex);
             } else {
-                // Auto-pick first numeric column
                 for (ColumnInfo col : dataset.getNumericColumns()) {
                     targetCol = col;
                     break;
@@ -97,7 +91,7 @@ public class Main {
 
             for (SortResult res : report.getResults()) {
                 System.out.printf("%-6s %-16s %-18s %-16s %-12s %-12s %-12s %-12s%n",
-                    res.getRank() == 1 ? "1 (★)" : String.valueOf(res.getRank()),
+                    res.getRank() == 1 ? "1 (Best)" : String.valueOf(res.getRank()),
                     res.getAlgorithmName(),
                     res.getFormattedTime(),
                     String.format("%,d ns", res.getExecutionTimeNanos()),

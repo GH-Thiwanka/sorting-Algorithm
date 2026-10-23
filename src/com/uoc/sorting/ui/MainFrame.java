@@ -22,15 +22,6 @@ import java.util.List;
 
 /**
  * Main Graphical User Interface for the Sorting Algorithm Performance Evaluator.
- * 
- * Part of Member 3's contribution: User Interface and Experience.
- * Integrates:
- * - Member 1: File Upload & Dataset Handling
- * - Member 2: Sorting Algorithms Execution
- * - Member 3: Performance Benchmarking & Visual Reporting
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class MainFrame extends JFrame {
 
@@ -70,7 +61,7 @@ public class MainFrame extends JFrame {
     }
 
     private void initUI() {
-        setTitle("Sorting Algorithm Performance Evaluation - University of Colombo (IC4302)");
+        setTitle("Sorting Algorithm Performance Evaluator");
         setSize(1200, 800);
         setMinimumSize(new Dimension(980, 680));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,7 +102,7 @@ public class MainFrame extends JFrame {
         titleLabel.setFont(UITheme.FONT_TITLE);
         titleLabel.setForeground(UITheme.HEADER_TEXT);
 
-        JLabel subtitleLabel = new JLabel("Department of ICT • Faculty of Technology • University of Colombo | IC4302 – Programming III");
+        JLabel subtitleLabel = new JLabel("Upload a CSV dataset, select a numeric column, and evaluate sorting algorithm execution times");
         subtitleLabel.setFont(UITheme.FONT_SUBTITLE);
         subtitleLabel.setForeground(new Color(148, 163, 184)); // Slate 400
 
@@ -120,8 +111,7 @@ public class MainFrame extends JFrame {
 
         header.add(titleBlock, BorderLayout.WEST);
 
-        // Badge on right
-        JLabel badge = new JLabel("Java 11 • GUI Edition");
+        JLabel badge = new JLabel("Performance Suite");
         badge.setFont(UITheme.FONT_BODY_BOLD);
         badge.setForeground(UITheme.SUCCESS_GREEN);
         header.add(badge, BorderLayout.EAST);
@@ -160,14 +150,14 @@ public class MainFrame extends JFrame {
         JPanel actionRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 8));
         actionRow.setBackground(UITheme.PANEL_BG);
         actionRow.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(UITheme.BORDER_COLOR, 1, true),
+            BorderFactory.createLineBorder(UITheme.BORDER_COLOR, 1, false),
             new EmptyBorder(6, 10, 6, 10)
         ));
 
-        btnUpload = UITheme.createStyledButton("📁 Upload CSV File", UITheme.PRIMARY_NAVY, Color.WHITE);
+        btnUpload = UITheme.createStyledButton("Upload CSV File", UITheme.PRIMARY_NAVY, Color.WHITE);
         btnUpload.addActionListener(e -> chooseAndUploadFile());
 
-        btnLoadSample = UITheme.createStyledButton("📊 Load Sample Data", new Color(71, 85, 105), Color.WHITE);
+        btnLoadSample = UITheme.createStyledButton("Load Sample Data", new Color(71, 85, 105), Color.WHITE);
         btnLoadSample.addActionListener(e -> promptLoadSampleDataset());
 
         JLabel lblCol = new JLabel("Sort Column:");
@@ -181,16 +171,16 @@ public class MainFrame extends JFrame {
         comboAlgorithms = new JComboBox<>();
         comboAlgorithms.setPreferredSize(new Dimension(200, 32));
         comboAlgorithms.setFont(UITheme.FONT_BODY);
-        comboAlgorithms.addItem("★ Compare All (All 5 Algorithms)");
+        comboAlgorithms.addItem("Compare All (All 5 Algorithms)");
         for (SortAlgorithm algo : evaluator.getRegisteredAlgorithms()) {
             comboAlgorithms.addItem(algo.getName());
         }
 
-        btnRun = UITheme.createStyledButton("▶ Run Performance Benchmark", UITheme.SUCCESS_DARK, Color.WHITE);
-        btnRun.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnRun = UITheme.createStyledButton("Run Performance Benchmark", UITheme.SUCCESS_DARK, Color.WHITE);
+        btnRun.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btnRun.addActionListener(e -> executeBenchmark());
 
-        btnExport = UITheme.createStyledButton("💾 Export Report", new Color(100, 116, 139), Color.WHITE);
+        btnExport = UITheme.createStyledButton("Export Report", new Color(100, 116, 139), Color.WHITE);
         btnExport.setEnabled(false);
         btnExport.addActionListener(e -> exportBenchmarkReport());
 
@@ -217,19 +207,16 @@ public class MainFrame extends JFrame {
         tabbedPane.setFont(UITheme.FONT_HEADER);
 
         // Tab 1: Benchmark Results & Visual Chart
-        tabbedPane.addTab("📊 Benchmark & Comparison", createBenchmarkTab());
+        tabbedPane.addTab("Benchmark & Comparison", createBenchmarkTab());
 
         // Tab 2: Dataset Preview Table
-        tabbedPane.addTab("📄 Dataset Preview", createDatasetPreviewTab());
+        tabbedPane.addTab("Dataset Preview", createDatasetPreviewTab());
 
         // Tab 3: Sorted Column Values
-        tabbedPane.addTab("🔢 Sorted Data Preview", createSortedDataTab());
+        tabbedPane.addTab("Sorted Data Preview", createSortedDataTab());
 
         // Tab 4: Algorithm Analysis & Big-O Guide
-        tabbedPane.addTab("📚 Algorithm Reference", createAlgorithmReferenceTab());
-
-        // Tab 5: Group Roles & Presentation Script
-        tabbedPane.addTab("👥 Team Contribution & Presentation", createGroupGuideTab());
+        tabbedPane.addTab("Algorithm Reference", createAlgorithmReferenceTab());
 
         return tabbedPane;
     }
@@ -239,17 +226,17 @@ public class MainFrame extends JFrame {
         panel.setBackground(UITheme.BG_LIGHT);
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // 1. Champion Best Performer Banner
+        // 1. Best Performer Banner
         panelBestPerformer = new JPanel(new BorderLayout(10, 5));
         panelBestPerformer.setBackground(UITheme.SUCCESS_BG);
         panelBestPerformer.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(UITheme.SUCCESS_DARK, 2, true),
+            BorderFactory.createLineBorder(UITheme.SUCCESS_DARK, 1, false),
             new EmptyBorder(12, 16, 12, 16)
         ));
         panelBestPerformer.setVisible(false);
 
-        lblBestPerformerText = new JLabel("★ BEST PERFORMING ALGORITHM");
-        lblBestPerformerText.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lblBestPerformerText = new JLabel("BEST PERFORMING ALGORITHM");
+        lblBestPerformerText.setFont(new Font("Segoe UI", Font.BOLD, 15));
         lblBestPerformerText.setForeground(UITheme.SUCCESS_DARK);
 
         lblBestPerformerSpeedup = new JLabel("");
@@ -283,7 +270,7 @@ public class MainFrame extends JFrame {
         JScrollPane scrollTable = new JScrollPane(tableResults);
         scrollTable.setPreferredSize(new Dimension(800, 170));
         scrollTable.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(UITheme.BORDER_COLOR, 1, true),
+            BorderFactory.createLineBorder(UITheme.BORDER_COLOR, 1, false),
             "Benchmark Results Table & Theoretical Complexity Breakdown",
             TitledBorder.LEFT,
             TitledBorder.TOP,
@@ -338,7 +325,7 @@ public class MainFrame extends JFrame {
 
         JScrollPane scroll = new JScrollPane(txtSortedPreview);
         scroll.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(UITheme.BORDER_COLOR, 1, true),
+            BorderFactory.createLineBorder(UITheme.BORDER_COLOR, 1, false),
             "Sorted Values Verification (Ascending Order)",
             TitledBorder.LEFT,
             TitledBorder.TOP,
@@ -368,24 +355,6 @@ public class MainFrame extends JFrame {
         return panel;
     }
 
-    private JPanel createGroupGuideTab() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(UITheme.PANEL_BG);
-        panel.setBorder(new EmptyBorder(14, 16, 14, 16));
-
-        JEditorPane editorPane = new JEditorPane();
-        editorPane.setEditable(false);
-        editorPane.setContentType("text/html");
-        editorPane.setText(buildGroupGuideHtml());
-        editorPane.setCaretPosition(0);
-
-        JScrollPane scroll = new JScrollPane(editorPane);
-        scroll.setBorder(null);
-        panel.add(scroll, BorderLayout.CENTER);
-
-        return panel;
-    }
-
     private JPanel createStatusBar() {
         JPanel statusPanel = new JPanel(new BorderLayout());
         statusPanel.setBackground(new Color(241, 245, 249));
@@ -398,12 +367,7 @@ public class MainFrame extends JFrame {
         lblStatus.setFont(UITheme.FONT_SUBTITLE);
         lblStatus.setForeground(UITheme.TEXT_MUTED);
 
-        JLabel lblCopyright = new JLabel("University of Colombo • Faculty of Technology");
-        lblCopyright.setFont(UITheme.FONT_SUBTITLE);
-        lblCopyright.setForeground(UITheme.TEXT_MUTED);
-
         statusPanel.add(lblStatus, BorderLayout.WEST);
-        statusPanel.add(lblCopyright, BorderLayout.EAST);
 
         return statusPanel;
     }
@@ -417,7 +381,6 @@ public class MainFrame extends JFrame {
         chooser.setDialogTitle("Upload CSV Dataset");
         chooser.setFileFilter(new FileNameExtensionFilter("CSV Datasets (*.csv)", "csv"));
 
-        // If datasets directory exists, start there
         File defaultDir = new File("datasets");
         if (defaultDir.exists()) {
             chooser.setCurrentDirectory(defaultDir);
@@ -547,11 +510,11 @@ public class MainFrame extends JFrame {
             return;
         }
 
-        // Validate numeric requirement from assignment
+        // Validate numeric requirement
         if (!selectedItem.info.isNumeric()) {
             JOptionPane.showMessageDialog(this,
                 "The selected column '" + selectedItem.info.getName() + "' contains text or non-numeric values.\n\n" +
-                "Per assignment requirements: Always select a numeric column to sort.",
+                "Please select a numeric column to sort.",
                 "Numeric Column Required", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -569,7 +532,7 @@ public class MainFrame extends JFrame {
             String selectedAlgo = (String) comboAlgorithms.getSelectedItem();
             EvaluationReport report;
 
-            if (selectedAlgo == null || selectedAlgo.startsWith("★ Compare All")) {
+            if (selectedAlgo == null || selectedAlgo.startsWith("Compare All")) {
                 report = evaluator.evaluateAll(currentDataset.getSourceFileName(), selectedItem.info.getName(), rawData);
             } else {
                 SortAlgorithm targetAlgo = null;
@@ -605,7 +568,7 @@ public class MainFrame extends JFrame {
         SortResult best = report.getBestPerformer();
         if (best != null) {
             panelBestPerformer.setVisible(true);
-            lblBestPerformerText.setText(String.format("🏆 BEST PERFORMING ALGORITHM: %s  —  Execution Time: %s",
+            lblBestPerformerText.setText(String.format("BEST PERFORMING ALGORITHM: %s  —  Execution Time: %s",
                 best.getAlgorithmName().toUpperCase(), best.getFormattedTime()));
 
             if (report.getResults().size() > 1 && report.getSlowestPerformer() != null) {
@@ -667,7 +630,6 @@ public class MainFrame extends JFrame {
             try (FileWriter writer = new FileWriter(target)) {
                 writer.write("=======================================================================\n");
                 writer.write("SORTING ALGORITHM PERFORMANCE EVALUATION REPORT\n");
-                writer.write("Course: IC4302 - Programming III | University of Colombo\n");
                 writer.write("=======================================================================\n\n");
                 writer.write("Dataset: " + currentReport.getDatasetName() + "\n");
                 writer.write("Evaluated Column: " + currentReport.getColumnName() + "\n");
@@ -680,7 +642,7 @@ public class MainFrame extends JFrame {
 
                 for (SortResult res : currentReport.getResults()) {
                     writer.write(String.format("%-6s %-16s %-18s %-16s %-12s %-12s %-12s %-12s\n",
-                        res.getRank() == 1 ? "1 (★)" : String.valueOf(res.getRank()),
+                        String.valueOf(res.getRank()),
                         res.getAlgorithmName(),
                         res.getFormattedTime(),
                         String.format("%,d ns", res.getExecutionTimeNanos()),
@@ -716,8 +678,8 @@ public class MainFrame extends JFrame {
 
     private String buildAlgorithmReferenceHtml() {
         return "<html><body style='font-family:sans-serif; padding:15px; color:#1e293b;'>" +
-            "<h2 style='color:#0f172a;'>Comprehensive Sorting Algorithm Complexity & Mechanics</h2>" +
-            "<p>This application implements the 5 standard sorting algorithms mandated by IC4302:</p>" +
+            "<h2 style='color:#0f172a;'>Sorting Algorithm Complexity and Mechanics</h2>" +
+            "<p>The five sorting algorithms implemented in this evaluation application:</p>" +
             "<table border='1' cellpadding='8' cellspacing='0' style='border-collapse:collapse; width:100%; border-color:#cbd5e1;'>" +
             "<tr style='background-color:#f1f5f9; text-align:left;'>" +
             "<th>Algorithm</th><th>Best Time</th><th>Average Time</th><th>Worst Time</th><th>Space</th><th>Stability</th><th>Core Concept</th>" +
@@ -743,36 +705,6 @@ public class MainFrame extends JFrame {
             "<td>Transforms array into binary max-heap and repeatedly extracts maximum element into place.</td>" +
             "</tr>" +
             "</table>" +
-            "</body></html>";
-    }
-
-    private String buildGroupGuideHtml() {
-        return "<html><body style='font-family:sans-serif; padding:15px; color:#1e293b; line-height:1.5;'>" +
-            "<h2 style='color:#0f172a;'>Assignment Role Allocation & Zoom Presentation Guide</h2>" +
-            "<p>Aligned with the IC4302 Assignment Specification Guidelines:</p>" +
-            "<div style='background-color:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:12px;'>" +
-            "<h3 style='color:#2563eb; margin-top:0;'>Member 1: File Upload & Dataset Handling</h3>" +
-            "<ul>" +
-            "<li><b>Package:</b> <code>com.uoc.sorting.io</code> & <code>com.uoc.sorting.model</code></li>" +
-            "<li><b>Key Classes:</b> <code>CSVReader.java</code>, <code>CSVParserException.java</code>, <code>Dataset.java</code>, <code>ColumnInfo.java</code></li>" +
-            "<li><b>Presentation Talk Points:</b> RFC 4180 parsing, quoted comma handling, numeric column automatic classification, edge case handling.</li>" +
-            "</ul></div>" +
-
-            "<div style='background-color:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:12px;'>" +
-            "<h3 style='color:#2563eb; margin-top:0;'>Member 2: Implementation of Sorting Algorithms</h3>" +
-            "<ul>" +
-            "<li><b>Package:</b> <code>com.uoc.sorting.algorithms</code></li>" +
-            "<li><b>Key Classes:</b> <code>SortAlgorithm.java</code>, <code>InsertionSort.java</code>, <code>ShellSort.java</code>, <code>MergeSort.java</code>, <code>QuickSort.java</code>, <code>HeapSort.java</code></li>" +
-            "<li><b>Presentation Talk Points:</b> In-place mechanics, Knuth gap sequence in Shell Sort, Median-of-Three pivot in Quick Sort, Max-Heap heapify in Heap Sort, time/space trade-offs.</li>" +
-            "</ul></div>" +
-
-            "<div style='background-color:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:12px;'>" +
-            "<h3 style='color:#2563eb; margin-top:0;'>Member 3: Performance Evaluation & Graphical User Interface</h3>" +
-            "<ul>" +
-            "<li><b>Package:</b> <code>com.uoc.sorting.benchmark</code> & <code>com.uoc.sorting.ui</code></li>" +
-            "<li><b>Key Classes:</b> <code>PerformanceEvaluator.java</code>, <code>EvaluationReport.java</code>, <code>MainFrame.java</code>, <code>ChartPanel.java</code></li>" +
-            "<li><b>Presentation Talk Points:</b> High-resolution nanosecond timing, JIT warm-up to prevent JVM bias, visual bar chart rendering, best-performer champion identification, live application demonstration.</li>" +
-            "</ul></div>" +
             "</body></html>";
     }
 }

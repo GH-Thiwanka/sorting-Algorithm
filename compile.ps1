@@ -1,6 +1,5 @@
-# IC4302 - Compile script (PowerShell)
 Write-Host "=======================================================================" -ForegroundColor Cyan
-Write-Host "Compiling IC4302 Sorting Algorithm Performance Evaluation Project..." -ForegroundColor Cyan
+Write-Host "Compiling Sorting Algorithm Performance Evaluation Project..." -ForegroundColor Cyan
 Write-Host "=======================================================================" -ForegroundColor Cyan
 
 if (!(Test-Path 'build')) {

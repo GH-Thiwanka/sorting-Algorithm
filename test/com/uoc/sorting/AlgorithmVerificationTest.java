@@ -16,9 +16,6 @@ import java.util.Random;
 /**
  * Automated Verification & Regression Test Suite for all 5 Sorting Algorithms
  * and CSV Parsing engine.
- * 
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class AlgorithmVerificationTest {
 
@@ -27,8 +24,7 @@ public class AlgorithmVerificationTest {
 
     public static void main(String[] args) {
         System.out.println("=======================================================================");
-        System.out.println("IC4302 - SORTING ALGORITHM AUTOMATED VERIFICATION TEST SUITE");
-        System.out.println("University of Colombo • Faculty of Technology");
+        System.out.println("SORTING ALGORITHM AUTOMATED VERIFICATION TEST SUITE");
         System.out.println("=======================================================================\n");
 
         List<SortAlgorithm> algorithms = Arrays.asList(
@@ -39,7 +35,6 @@ public class AlgorithmVerificationTest {
             new HeapSort()
         );
 
-        // 1. Test each algorithm across comprehensive edge cases
         for (SortAlgorithm algo : algorithms) {
             System.out.println("Testing Algorithm: " + algo.getName() + "...");
             testAlgorithmEdgeCases(algo);
@@ -47,7 +42,6 @@ public class AlgorithmVerificationTest {
             System.out.println();
         }
 
-        // 2. Test CSV parsing logic
         testCsvParsing();
 
         System.out.println("\n=======================================================================");
@@ -97,7 +91,7 @@ public class AlgorithmVerificationTest {
     }
 
     private static void testLargeRandomDataset(SortAlgorithm algo, int size) {
-        Random rand = new Random(42); // fixed seed for determinism
+        Random rand = new Random(42);
         double[] array = new double[size];
         double[] expected = new double[size];
 

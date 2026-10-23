@@ -2,10 +2,6 @@ package com.uoc.sorting.model;
 
 /**
  * Stores the benchmark evaluation outcome for a single sorting algorithm.
- * Part of Member 3's contribution: Performance Evaluation.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public class SortResult {
     private final String algorithmName;

@@ -2,10 +2,6 @@ package com.uoc.sorting.algorithms;
 
 /**
  * Common contract for all sorting algorithm implementations.
- * Part of Member 2's contribution: Implementation of Sorting Algorithms.
- *
- * Course: IC4302 - Programming III
- * Department of ICT, Faculty of Technology, University of Colombo
  */
 public interface SortAlgorithm {
 
