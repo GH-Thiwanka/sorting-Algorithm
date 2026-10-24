@@ -79,27 +79,28 @@ The project includes four pre-generated CSV datasets in the `datasets/` director
 ### Prerequisites
 - Java JDK 11 or higher (`java -version`, `javac -version`)
 
-### Quick Start (Windows)
-Double-click or run from Command Prompt:
+### Running the Application (Executable JAR)
+The application is pre-packaged as a standalone executable JAR:
+- **GUI Mode:** Simply double-click `SortingPerformanceEvaluator.jar` or run:
+  ```cmd
+  java -jar SortingPerformanceEvaluator.jar
+  ```
+- **CLI Benchmark Mode:** Run headless benchmark on any dataset from the command line:
+  ```cmd
+  java -jar SortingPerformanceEvaluator.jar --benchmark datasets/housing_prices.csv 7
+  ```
+
+### Compiling from Source (Optional)
+If you wish to recompile the project manually:
 ```cmd
-compile.bat    :: Compiles all source and test files, generates JAR
-run.bat        :: Launches the Graphical User Interface
-test.bat       :: Runs the 40 automated verification & edge case tests
+javac -encoding UTF-8 -d build -sourcepath src src/com/uoc/sorting/Main.java src/com/uoc/sorting/model/*.java src/com/uoc/sorting/io/*.java src/com/uoc/sorting/algorithms/*.java src/com/uoc/sorting/benchmark/*.java src/com/uoc/sorting/ui/*.java
+jar cfe SortingPerformanceEvaluator.jar com.uoc.sorting.Main -C build .
 ```
 
-Or double-click `SortingPerformanceEvaluator.jar` directly to launch the GUI.
-
-### Quick Start (PowerShell)
-```powershell
-.\compile.ps1  # Compiles the application and generates JAR
-.\run.ps1      # Launches GUI
-.\test.ps1     # Runs tests
-```
-
-### Command-Line Benchmark Mode (CLI)
-You can also run benchmarks directly in command-line mode:
-```bash
-java -jar SortingPerformanceEvaluator.jar --benchmark datasets/housing_prices.csv 7
+### Running Automated Tests
+```cmd
+javac -encoding UTF-8 -d build -cp build test/com/uoc/sorting/AlgorithmVerificationTest.java
+java -cp build com.uoc.sorting.AlgorithmVerificationTest
 ```
 
 ---
